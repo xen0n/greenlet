@@ -16,17 +16,20 @@ def bits():
 
 # -- parse options
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "nq")
+    opts, args = getopt.getopt(sys.argv[1:], "nqr:")
     if args:
         raise getopt.GetoptError("too many arguments")
 except getopt.GetoptError:
     sys.exit("run-tests.py: error: %s" % sys.exc_info()[1])
 
+count = 1
 for o, a in opts:
     if o == "-q":
         verbosity = 0
     elif o == "-n":
         build = False
+    elif o == "-r":
+        count = int(a)
 
 # -- build greenlet
 if build:
@@ -55,4 +58,5 @@ sys.stdout.write("python %s (%s bit) using greenlet %s from %s\n" %
 # -- run tests
 from tests import test_collector
 suite = test_collector()
-unittest.TextTestRunner(verbosity=verbosity).run(suite)
+for i in range(count):
+    unittest.TextTestRunner(verbosity=verbosity).run(suite)
