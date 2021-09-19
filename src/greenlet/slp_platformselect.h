@@ -55,4 +55,6 @@
 #include "platform/switch_riscv_unix.h" /* gcc on RISC-V */
 #elif defined(__GNUC__) && defined(__alpha__)
 #include "platform/switch_alpha_unix.h" /* gcc on DEC Alpha */
+#elif defined(__GNUC__) && defined(__loongarch64)
+#include "platform/switch_loongarch64_unix.h" /* gcc on LoongArch (64-bit) */
 #endif
